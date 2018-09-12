@@ -17,7 +17,8 @@ const styles = theme => ({
   },
   title: {},
   href: {
-    textDecoration: 'none'
+    textDecoration: 'none',
+    color: 'inherit'
   }
 })
 

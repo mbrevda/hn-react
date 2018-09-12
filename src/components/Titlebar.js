@@ -12,6 +12,10 @@ const styles = theme => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  href: {
+    textDecoration: 'none',
+    color: 'inherit'
   }
 })
 
@@ -23,7 +27,9 @@ class Titlebar extends Component {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Hacker News
+            <a href="/" className={classes.href}>
+              Hacker News
+            </a>
           </Typography>
         </Toolbar>
       </AppBar>

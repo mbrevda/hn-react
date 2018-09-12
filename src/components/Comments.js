@@ -1,12 +1,5 @@
 import React, {Component} from 'react'
-import {withStyles} from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-
-const styles = theme => ({
-  href: {
-    textDecoration: 'none'
-  }
-})
 
 class Comments extends Component {
   render() {
@@ -23,4 +16,4 @@ Comments.propTypes = {
   kids: PropTypes.array
 }
 
-export default withStyles(styles)(Comments)
+export default Comments
