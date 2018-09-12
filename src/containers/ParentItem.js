@@ -11,6 +11,7 @@ import Comments from 'src/components/Comments.js'
 import Score from 'src/components/Score.js'
 import User from 'src/containers/User.js'
 import fetchCache from 'src/fetchCache.js'
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   card: {
@@ -83,9 +84,9 @@ class ParentItem extends Component {
             <Time time={this.state.time} />
             {' | '}
 
-            <a href={'items/' + this.state.id} className={classes.href}>
+            <Link to={'items/' + this.state.id} className={classes.href}>
               <Comments kids={this.state.kids} />
-            </a>
+            </Link>
           </Typography>
         </CardContent>
       </Card>
