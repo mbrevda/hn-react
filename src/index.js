@@ -1,5 +1,6 @@
 import 'typeface-roboto'
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import Shell from './components/Shell.js'
 
-ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('root'))
+ReactDOM.render(<Shell />, document.getElementById('root'))
