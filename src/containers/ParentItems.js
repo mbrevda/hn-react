@@ -2,9 +2,20 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import ParentItem from 'src/containers/ParentItem.js'
-import {WindowScroller, AutoSizer, List} from 'react-virtualized'
+import {
+  WindowScroller,
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  List
+} from 'react-virtualized'
 import fetchCache from 'src/fetchCache.js'
 import Loading from 'src/components/Loading.js'
+const cache = new CellMeasurerCache({
+  defaultHeight: 128,
+  minHeight: 128,
+  fixedWidth: true
+})
 
 const styles = theme => ({
   flex: {
@@ -44,15 +55,30 @@ class ParentItems extends Component {
               <List
                 autoHeight
                 height={height}
+                deferredMeasurementCache={cache}
                 isScrolling={isScrolling}
                 onScroll={onChildScroll}
                 overscanRowCount={3}
                 rowCount={this.state.items.length}
-                rowHeight={128}
+                rowHeight={cache.rowHeight}
                 rowRenderer={props => (
-                  <div style={props.style} key={props.key}>
-                    <ParentItem id={this.state.items[props.index]} {...props} />
-                  </div>
+                  <CellMeasurer
+                    cache={cache}
+                    columnIndex={0}
+                    key={props.key}
+                    parent={props.parent}
+                    rowIndex={props.index}
+                  >
+                    {({ measure }) => (
+                    <div style={props.style} key={props.key}>
+                      <ParentItem
+                        measure={measure}
+                        id={this.state.items[props.index]}
+                        {...props}
+                      />
+                    </div>
+                    )}
+                  </CellMeasurer>
                 )}
                 scrollTop={scrollTop}
                 width={width}

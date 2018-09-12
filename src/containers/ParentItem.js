@@ -36,7 +36,7 @@ class ParentItem extends Component {
     this._isMounted = false
   }
 
-  loadData(onlyFromCache) {
+  loadData(onlyFromCache, props) {
     fetchCache(
       `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`,
       {onlyFromCache}
@@ -46,6 +46,8 @@ class ParentItem extends Component {
         status: 'loaded',
         ...data
       })
+
+      requestAnimationFrame(props.measure)
     })
   }
 
@@ -59,7 +61,7 @@ class ParentItem extends Component {
   render() {
     const {classes} = this.props
     if (this.state.status == 'loading') {
-      this.loadData(this.props.isScrolling)
+      this.loadData(this.props.isScrolling, this.props)
       return <Loading />
     }
 

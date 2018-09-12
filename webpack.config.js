@@ -34,7 +34,13 @@ module.exports = {
       {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
     ]
   },
-  plugins: [new HtmlWebpackPlugin(), new HtmlWebpackRootPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Hacker News',
+      meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
+    }),
+    new HtmlWebpackRootPlugin()
+  ],
   resolve: {
     modules: [__dirname, 'node_modules']
   },
