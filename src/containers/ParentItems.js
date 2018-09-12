@@ -35,6 +35,7 @@ class ParentItems extends Component {
 
   render() {
     if (this.state.status == 'loading') return <Loading />
+
     return (
       <WindowScroller>
         {({height, isScrolling, onChildScroll, scrollTop}) => (

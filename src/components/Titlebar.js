@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   flex: {
@@ -27,9 +28,9 @@ class Titlebar extends Component {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            <a href="/" className={classes.href}>
+            <Link to="/" className={classes.href}>
               Hacker News
-            </a>
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>

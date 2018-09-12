@@ -1,6 +1,6 @@
 import 'typeface-roboto'
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import Shell from './components/Shell.js'
+import Routes from './components/Routes.js'
 
-ReactDOM.render(<Shell />, document.getElementById('root'))
+ReactDOM.render(<Routes />, document.getElementById('root'))
