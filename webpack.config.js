@@ -4,13 +4,15 @@ const HtmlWebpackRootPlugin = require('html-webpack-root-plugin')
 
 module.exports = {
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    historyApiFallback: true
   },
   devtool: 'cheap-eval-source-map',
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   module: {
     rules: [

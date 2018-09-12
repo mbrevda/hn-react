@@ -5,18 +5,21 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import PropTypes from 'prop-types'
+import ChildItems from '../containers/ChildItems.js'
 
 const styles = theme => ({
   card: {
     marginTop: 16
   },
-  title: {},
+  title: {
+    marginBottom: 12
+  },
   href: {
     textDecoration: 'none'
   }
 })
 
-class ParentItem extends Component {
+class ChildItem extends Component {
   constructor() {
     super()
 
@@ -36,15 +39,6 @@ class ParentItem extends Component {
       })
   }
 
-  renderCommentsText(kids, id) {
-    if (!kids) return 'no comments yet'
-
-    let count = kids.length
-    return (
-      <a href={'items/' + id}> {count + ' comment' + (count > 1 ? 's' : '')}</a>
-    )
-  }
-
   renderDate(date) {
     return (
       new Date(this.state.time * 1000).toLocaleDateString() +
@@ -57,43 +51,39 @@ class ParentItem extends Component {
     const {classes} = this.props
 
     if (this.state.status == 'loading') return <>Loading...</>
-    const url = this.state.url ? this.state.url : 'item/' + this.state.id
-
+    if (this.state.deleted == true) {
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography component="p">deleted</Typography>
+          </CardContent>
+        </Card>
+      )
+    }
     return (
       <Card className={classes.card}>
         <CardContent>
-          <a href={url} className={classes.href}>
-            <Typography variant="headline" component="h2">
-              {this.state.title}
-            </Typography>
-          </a>
-          {this.state.url ? (
-            <Typography className={classes.title} color="textSecondary">
-              {new URL(this.state.url).hostname}
-            </Typography>
-          ) : (
-            ''
-          )}
-          <Typography component="p">
-            {String.fromCharCode(9652) +
-              ' ' +
-              this.state.score +
-              ' | ' +
-              this.state.by +
-              ' | ' +
-              this.renderDate(this.state.time) +
-              ' | '}
-            {this.renderCommentsText(this.state.kids, this.state.id)}
+          <Typography className={classes.title} color="textSecondary">
+            {this.state.by + ' | ' + this.renderDate(this.state.time)}
           </Typography>
+          <Typography
+            component="p"
+            dangerouslySetInnerHTML={{__html: this.state.text}}
+          />
+
+          {/*this.state.kids && this.state.kids.length
+            ? this.state.kids.map(id => <ChildItem id={id} key={id} />)
+            : ''*/}
+          <ChildItems id={this.props.id} />
         </CardContent>
       </Card>
     )
   }
 }
 
-ParentItem.propTypes = {
+ChildItem.propTypes = {
   classes: PropTypes.object,
   id: PropTypes.number
 }
 
-export default withStyles(styles)(ParentItem)
+export default withStyles(styles)(ChildItem)
