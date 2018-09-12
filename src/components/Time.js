@@ -8,10 +8,12 @@ class Time extends Component {
   }
 
   componentDidMount() {
-    import('react-moment').then(({default: Moment}) => {
-      global.Moment = Moment
-      this.setState({momentIsLoaded: true})
-    })
+    import(/* webpackChunkName:'react-moment' */ 'react-moment').then(
+      ({default: Moment}) => {
+        global.Moment = Moment
+        this.setState({momentIsLoaded: true})
+      }
+    )
   }
 
   render() {
