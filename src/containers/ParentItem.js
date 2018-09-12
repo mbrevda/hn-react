@@ -10,6 +10,7 @@ import Headline from 'src/components/Headline.js'
 import Comments from 'src/components/Comments.js'
 import Score from 'src/components/Score.js'
 import User from 'src/containers/User.js'
+import fetchCache from 'src/fetchCache.js'
 
 const styles = theme => ({
   card: {
@@ -33,18 +34,19 @@ class ParentItem extends Component {
     this._isMounted = false
   }
 
-  loadData() {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`)
-      .then(res => res.json())
-      .then(data => {
-        if (!this._isMounted) return
-        this.setState({
-          status: 'loaded',
-          ...data
-        })
+  loadData(onlyFromCache) {
+    fetchCache(
+      `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`,
+      {onlyFromCache}
+    ).then(data => {
+      if (!this._isMounted || !data) return
+      this.setState({
+        status: 'loaded',
+        ...data
       })
+    })
   }
-  
+
   componentDidMount() {
     this._isMounted = true
   }
@@ -55,7 +57,7 @@ class ParentItem extends Component {
   render() {
     const {classes} = this.props
     if (this.state.status == 'loading') {
-      if (!this.props.isScrolling) this.loadData()
+      this.loadData(this.props.isScrolling)
       return <>Loading...</>
     }
     const url = this.state.url ? this.state.url : 'item/' + this.state.id

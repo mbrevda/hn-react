@@ -47,7 +47,7 @@ class ParentItems extends Component {
                 rowCount={this.state.items.length}
                 rowHeight={128}
                 rowRenderer={props => (
-                  <div style={props.style}>
+                  <div style={props.style} key={props.key}>
                     <ParentItem id={this.state.items[props.index]} {...props} />
                   </div>
                 )}
