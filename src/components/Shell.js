@@ -3,7 +3,7 @@ import {withStyles} from '@material-ui/core/styles'
 //import Routes from 'src/containers/Routes.js'
 import Titlebar from 'src/components/Titlebar.js'
 import PropTypes from 'prop-types'
-import ParentItems from '../containers/ParentItems.js'
+import Routes from 'src/components/Routes.js'
 
 const styles = theme => ({
   flex: {
@@ -30,8 +30,7 @@ class Shell extends Component {
             this.setState({locale})
           }}
         />
-        <div style={{margin: '30px'}}>{/*<Routes />*/}</div>
-        <ParentItems />
+        <Routes />
       </>
     )
   }

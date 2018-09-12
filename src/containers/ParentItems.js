@@ -34,7 +34,7 @@ class ParentItems extends Component {
     return (
       <>
         {this.state.items.slice(0, 25).map(id => (
-          <ParentItem id={id} />
+          <ParentItem id={id} key={id} />
         ))}
       </>
     )

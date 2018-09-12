@@ -10,7 +10,10 @@ const styles = theme => ({
   card: {
     marginBottom: 16
   },
-  title: {}
+  title: {},
+  href: {
+    textDecoration: 'none'
+  }
 })
 
 class ParentItem extends Component {
@@ -33,11 +36,13 @@ class ParentItem extends Component {
       })
   }
 
-  renderCommentsText(kids) {
+  renderCommentsText(kids, id) {
     if (!kids) return 'no comments yet'
 
     let count = kids.length
-    return count + ' comment' + (count > 1 ? 's' : '')
+    return (
+      <a href={'items/' + id}> {count + ' comment' + (count > 1 ? 's' : '')}</a>
+    )
   }
 
   renderDate(date) {
@@ -52,13 +57,16 @@ class ParentItem extends Component {
     const {classes} = this.props
 
     if (this.state.status == 'loading') return <>Loading...</>
+    const url = this.state.url ? this.state.url : 'item/' + this.state.id
 
     return (
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="headline" component="h2">
-            {this.state.title}
-          </Typography>
+          <a href={url} className={classes.href}>
+            <Typography variant="headline" component="h2">
+              {this.state.title}
+            </Typography>
+          </a>
           {this.state.url ? (
             <Typography className={classes.title} color="textSecondary">
               {new URL(this.state.url).hostname}
@@ -74,8 +82,8 @@ class ParentItem extends Component {
               this.state.by +
               ' | ' +
               this.renderDate(this.state.time) +
-              ' | ' +
-              this.renderCommentsText(this.state.kids)}
+              ' | '}
+            {this.renderCommentsText(this.state.kids, this.state.id)}
           </Typography>
         </CardContent>
       </Card>
