@@ -70,10 +70,6 @@ class ChildItem extends Component {
             component="p"
             dangerouslySetInnerHTML={{__html: this.state.text}}
           />
-
-          {/*this.state.kids && this.state.kids.length
-            ? this.state.kids.map(id => <ChildItem id={id} key={id} />)
-            : ''*/}
           <ChildItems id={this.props.id} />
         </CardContent>
       </Card>

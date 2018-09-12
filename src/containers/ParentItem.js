@@ -36,13 +36,11 @@ class ParentItem extends Component {
       })
   }
 
-  renderCommentsText(kids, id) {
+  renderCommentsText(kids) {
     if (!kids) return 'no comments yet'
 
     let count = kids.length
-    return (
-      <a href={'items/' + id}> {count + ' comment' + (count > 1 ? 's' : '')}</a>
-    )
+    return count + ' comment' + (count > 1 ? 's' : '')
   }
 
   renderDate(date) {
@@ -83,7 +81,10 @@ class ParentItem extends Component {
               ' | ' +
               this.renderDate(this.state.time) +
               ' | '}
-            {this.renderCommentsText(this.state.kids, this.state.id)}
+
+            <a href={'items/' + this.state.id} className={classes.href}>
+              {this.renderCommentsText(this.state.kids)}
+            </a>
           </Typography>
         </CardContent>
       </Card>

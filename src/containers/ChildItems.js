@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
+import ChildTitle from 'src/components/ChildTitle.js'
 import ChildItem from 'src/containers/ChildItem.js'
 
 const styles = theme => ({
@@ -37,11 +38,12 @@ class ChildItems extends Component {
     if (this.state.status == 'loading') return <>Loading...</>
 
     return (
-      <>
+      <div>
+        {this.state.type != 'comment' ? <ChildTitle {...this.state} /> : ''}
         {this.state.kids
           ? this.state.kids.map(id => <ChildItem id={id} key={id} />)
           : ''}
-      </>
+      </div>
     )
   }
 }
