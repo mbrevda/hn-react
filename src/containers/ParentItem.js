@@ -6,6 +6,10 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Time from 'src/components/Time.js'
 import PropTypes from 'prop-types'
+import Headline from 'src/components/Headline.js'
+import Comments from 'src/components/Comments.js'
+import Score from 'src/components/Score.js'
+import User from 'src/containers/User.js'
 
 const styles = theme => ({
   card: {
@@ -37,13 +41,6 @@ class ParentItem extends Component {
       })
   }
 
-  renderCommentsText(kids) {
-    if (!kids) return 'no comments yet'
-
-    let count = kids.length
-    return count + ' comment' + (count > 1 ? 's' : '')
-  }
-
   render() {
     const {classes} = this.props
 
@@ -54,9 +51,7 @@ class ParentItem extends Component {
       <Card className={classes.card}>
         <CardContent>
           <a href={url} className={classes.href}>
-            <Typography variant="headline" component="h2">
-              {this.state.title}
-            </Typography>
+            <Headline title={this.state.title} />
           </a>
           {this.state.url ? (
             <Typography className={classes.title} color="textSecondary">
@@ -66,17 +61,15 @@ class ParentItem extends Component {
             ''
           )}
           <Typography component="p">
-            {String.fromCharCode(9652) +
-              ' ' +
-              this.state.score +
-              ' | ' +
-              this.state.by +
-              ' | '}
+            <Score score={this.state.score} />
+            {' | '}
+            <User user={this.state.by} />
+            {' | '}
             <Time time={this.state.time} />
             {' | '}
 
             <a href={'items/' + this.state.id} className={classes.href}>
-              {this.renderCommentsText(this.state.kids)}
+              <Comments kids={this.props.kids} />
             </a>
           </Typography>
         </CardContent>

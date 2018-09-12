@@ -6,6 +6,10 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import PropTypes from 'prop-types'
 import Time from 'src/components/Time.js'
+import Headline from 'src/components/Headline.js'
+import Comments from 'src/components/Comments.js'
+import Score from 'src/components/Score.js'
+import User from 'src/containers/User.js'
 
 const styles = theme => ({
   card: {
@@ -33,19 +37,15 @@ class ChildTitle extends Component {
     return (
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="headline" component="h2">
-            {this.props.title}
-          </Typography>
+          <Headline title={this.props.title} />
           <Typography component="p">
-            {String.fromCharCode(9652) +
-              ' ' +
-              this.props.score +
-              ' | ' +
-              this.props.by +
-              ' | '}
+            <Score score={this.props.score} />
+            {' | '}
+            <User user={this.props.by} />
+            {' | '}
             <Time time={this.props.time} />
             {' | '}
-            {this.renderCommentsText(this.props.kids, this.props.id)}
+            <Comments kids={this.props.kids} />
           </Typography>
         </CardContent>
       </Card>
