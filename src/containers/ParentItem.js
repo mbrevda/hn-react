@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
+import Time from 'src/components/Time.js'
 import PropTypes from 'prop-types'
 
 const styles = theme => ({
@@ -43,14 +44,6 @@ class ParentItem extends Component {
     return count + ' comment' + (count > 1 ? 's' : '')
   }
 
-  renderDate(date) {
-    return (
-      new Date(this.state.time * 1000).toLocaleDateString() +
-      ' ' +
-      new Date(this.state.time * 1000).toLocaleTimeString()
-    )
-  }
-
   render() {
     const {classes} = this.props
 
@@ -78,9 +71,9 @@ class ParentItem extends Component {
               this.state.score +
               ' | ' +
               this.state.by +
-              ' | ' +
-              this.renderDate(this.state.time) +
               ' | '}
+            <Time time={this.state.time} />
+            {' | '}
 
             <a href={'items/' + this.state.id} className={classes.href}>
               {this.renderCommentsText(this.state.kids)}

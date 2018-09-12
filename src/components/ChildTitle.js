@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import PropTypes from 'prop-types'
+import Time from 'src/components/Time.js'
 
 const styles = theme => ({
   card: {
@@ -17,14 +18,6 @@ const styles = theme => ({
 })
 
 class ChildTitle extends Component {
-  renderDate(date) {
-    return (
-      new Date(date * 1000).toLocaleDateString() +
-      ' ' +
-      new Date(date * 1000).toLocaleTimeString()
-    )
-  }
-
   renderCommentsText(kids, id) {
     if (!kids) return 'no comments yet'
 
@@ -49,9 +42,9 @@ class ChildTitle extends Component {
               this.props.score +
               ' | ' +
               this.props.by +
-              ' | ' +
-              this.renderDate(this.props.time) +
               ' | '}
+            <Time time={this.props.time} />
+            {' | '}
             {this.renderCommentsText(this.props.kids, this.props.id)}
           </Typography>
         </CardContent>

@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import PropTypes from 'prop-types'
 import ChildItems from '../containers/ChildItems.js'
+import Time from 'src/components/Time.js'
 
 const styles = theme => ({
   card: {
@@ -39,14 +40,6 @@ class ChildItem extends Component {
       })
   }
 
-  renderDate(date) {
-    return (
-      new Date(this.state.time * 1000).toLocaleDateString() +
-      ' ' +
-      new Date(this.state.time * 1000).toLocaleTimeString()
-    )
-  }
-
   render() {
     const {classes} = this.props
 
@@ -64,7 +57,8 @@ class ChildItem extends Component {
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
-            {this.state.by + ' | ' + this.renderDate(this.state.time)}
+            {this.state.by + ' | '}
+            <Time time={this.state.time} />
           </Typography>
           <Typography
             component="p"
