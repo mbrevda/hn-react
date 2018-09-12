@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import ChildTitle from 'src/components/ChildTitle.js'
 import ChildItem from 'src/containers/ChildItem.js'
+import {WindowScroller, AutoSizer, List} from 'react-virtualized'
 
 const styles = theme => ({
   menuButton: {}
@@ -40,6 +41,7 @@ class ChildItems extends Component {
     return (
       <div>
         {this.state.type != 'comment' ? <ChildTitle {...this.state} /> : ''}
+
         {this.state.kids
           ? this.state.kids.map(id => <ChildItem id={id} key={id} />)
           : ''}

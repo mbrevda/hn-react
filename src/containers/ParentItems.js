@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import ParentItem from 'src/containers/ParentItem.js'
+import {WindowScroller, AutoSizer, List} from 'react-virtualized'
 
 const styles = theme => ({
   flex: {
@@ -16,7 +17,7 @@ const styles = theme => ({
 class ParentItems extends Component {
   constructor() {
     super()
-    this.state = {items: []}
+    this.state = {items: [], status: 'loading'}
   }
 
   componentDidMount() {
@@ -31,12 +32,32 @@ class ParentItems extends Component {
   }
 
   render() {
+    if (this.state.status == 'loading') return 'Loading...'
     return (
-      <>
-        {this.state.items.slice(0, 25).map(id => (
-          <ParentItem id={id} key={id} />
-        ))}
-      </>
+      <WindowScroller>
+        {({height, isScrolling, onChildScroll, scrollTop}) => (
+          <AutoSizer disableHeight>
+            {({width}) => (
+              <List
+                autoHeight
+                height={height}
+                isScrolling={isScrolling}
+                onScroll={onChildScroll}
+                overscanRowCount={3}
+                rowCount={this.state.items.length}
+                rowHeight={128}
+                rowRenderer={props => (
+                  <div style={props.style}>
+                    <ParentItem id={this.state.items[props.index]} {...props} />
+                  </div>
+                )}
+                scrollTop={scrollTop}
+                width={width}
+              />
+            )}
+          </AutoSizer>
+        )}
+      </WindowScroller>
     )
   }
 }

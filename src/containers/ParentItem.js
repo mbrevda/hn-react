@@ -29,23 +29,35 @@ class ParentItem extends Component {
     this.state = {
       status: 'loading'
     }
+
+    this._isMounted = false
   }
 
-  componentDidMount() {
+  loadData() {
     fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`)
       .then(res => res.json())
       .then(data => {
+        if (!this._isMounted) return
         this.setState({
           status: 'loaded',
           ...data
         })
       })
   }
+  
+  componentDidMount() {
+    this._isMounted = true
+  }
+  componentWillUnmount() {
+    this._isMounted = false
+  }
 
   render() {
     const {classes} = this.props
-
-    if (this.state.status == 'loading') return <>Loading...</>
+    if (this.state.status == 'loading') {
+      if (!this.props.isScrolling) this.loadData()
+      return <>Loading...</>
+    }
     const url = this.state.url ? this.state.url : 'item/' + this.state.id
 
     return (

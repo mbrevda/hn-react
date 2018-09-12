@@ -7,7 +7,7 @@ module.exports = {
     contentBase: './dist',
     historyApiFallback: true
   },
-  devtool: 'cheap-eval-source-map',
+  devtool: 'source-map',
   entry: './src/index.js',
   output: {
     filename: 'main.js',
