@@ -38,6 +38,7 @@
     "react-moment": "^0.7.9",
     "react-router-dom": "^4.3.1",
     "react-virtualized": "^9.20.1",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "workbox-webpack-plugin": "^3.5.0"
   }
 }

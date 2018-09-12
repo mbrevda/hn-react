@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackRootPlugin = require('html-webpack-root-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
   devServer: {
@@ -40,7 +41,12 @@ module.exports = {
       title: 'Hacker News',
       meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
     }),
-    new HtmlWebpackRootPlugin()
+    new HtmlWebpackRootPlugin(),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      importWorkboxFrom: 'local'
+    })
   ],
   resolve: {
     modules: [__dirname, 'node_modules']
