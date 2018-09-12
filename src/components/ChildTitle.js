@@ -10,6 +10,7 @@ import Headline from 'src/components/Headline.js'
 import Comments from 'src/components/Comments.js'
 import Score from 'src/components/Score.js'
 import User from 'src/containers/User.js'
+import Loading from 'src/components/Loading.js'
 
 const styles = theme => ({
   card: {
@@ -22,17 +23,10 @@ const styles = theme => ({
 })
 
 class ChildTitle extends Component {
-  renderCommentsText(kids, id) {
-    if (!kids) return 'no comments yet'
-
-    let count = kids.length
-    return count + ' comment' + (count > 1 ? 's' : '')
-  }
-
   render() {
     const {classes} = this.props
 
-    if (this.props.status == 'loading') return <>Loading...</>
+    if (this.props.status == 'loading') return <Loading />
 
     return (
       <Card className={classes.card}>

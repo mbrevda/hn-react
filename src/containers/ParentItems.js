@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import ParentItem from 'src/containers/ParentItem.js'
 import {WindowScroller, AutoSizer, List} from 'react-virtualized'
 import fetchCache from 'src/fetchCache.js'
+import Loading from 'src/components/Loading.js'
 
 const styles = theme => ({
   flex: {
@@ -33,7 +34,7 @@ class ParentItems extends Component {
   }
 
   render() {
-    if (this.state.status == 'loading') return 'Loading...'
+    if (this.state.status == 'loading') return <Loading />
     return (
       <WindowScroller>
         {({height, isScrolling, onChildScroll, scrollTop}) => (

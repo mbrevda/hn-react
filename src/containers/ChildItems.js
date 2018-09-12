@@ -6,6 +6,7 @@ import ChildTitle from 'src/components/ChildTitle.js'
 import ChildItem from 'src/containers/ChildItem.js'
 import {WindowScroller, AutoSizer, List} from 'react-virtualized'
 import fetchCache from 'src/fetchCache.js'
+import Loading from 'src/components/Loading.js'
 
 const styles = theme => ({
   menuButton: {}
@@ -36,7 +37,7 @@ class ChildItems extends Component {
   render() {
     const {classes} = this.props
 
-    if (this.state.status == 'loading') return <>Loading...</>
+    if (this.state.status == 'loading') return <Loading />
 
     return (
       <div>

@@ -12,6 +12,7 @@ import Score from 'src/components/Score.js'
 import User from 'src/containers/User.js'
 import fetchCache from 'src/fetchCache.js'
 import {Link} from 'react-router-dom'
+import Loading from 'src/components/Loading.js'
 
 const styles = theme => ({
   card: {
@@ -59,8 +60,9 @@ class ParentItem extends Component {
     const {classes} = this.props
     if (this.state.status == 'loading') {
       this.loadData(this.props.isScrolling)
-      return <>Loading...</>
+      return <Loading />
     }
+
     const url = this.state.url ? this.state.url : 'item/' + this.state.id
 
     return (

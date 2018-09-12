@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import ChildItems from '../containers/ChildItems.js'
 import Time from 'src/components/Time.js'
 import fetchCache from 'src/fetchCache.js'
+import Loading from 'src/components/Loading.js'
 
 const styles = theme => ({
   card: {
@@ -44,15 +45,7 @@ class ChildItem extends Component {
   render() {
     const {classes} = this.props
 
-    if (this.state.status == 'loading') {
-      return (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography component="p">Loading...</Typography>
-          </CardContent>
-        </Card>
-      )
-    }
+    if (this.state.status == 'loading') return <Loading />
 
     if (this.state.deleted == true) {
       return (
