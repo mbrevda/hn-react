@@ -70,7 +70,7 @@ class ParentItem extends Component {
             {' | '}
 
             <a href={'items/' + this.state.id} className={classes.href}>
-              <Comments kids={this.props.kids} />
+              <Comments kids={this.state.kids} />
             </a>
           </Typography>
         </CardContent>
