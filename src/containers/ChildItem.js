@@ -29,12 +29,21 @@ class ChildItem extends Component {
     this.state = {
       status: 'loading'
     }
+
+    this._isMounted = false
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   componentDidMount() {
+    this._isMounted = true
     fetchCache(
       `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`
     ).then(data => {
+      if (!this._isMounted) return
+
       this.setState({
         status: 'loaded',
         ...data
