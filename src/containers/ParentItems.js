@@ -3,6 +3,7 @@ import {withStyles} from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import ParentItem from 'src/containers/ParentItem.js'
 import {WindowScroller, AutoSizer, List} from 'react-virtualized'
+import fetchCache from 'src/fetchCache.js'
 
 const styles = theme => ({
   flex: {
@@ -21,14 +22,14 @@ class ParentItems extends Component {
   }
 
   componentDidMount() {
-    fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
-      .then(res => res.json())
-      .then(data => {
+    fetchCache('https://hacker-news.firebaseio.com/v0/topstories.json').then(
+      data => {
         this.setState({
           status: 'loaded',
           items: data
         })
-      })
+      }
+    )
   }
 
   render() {

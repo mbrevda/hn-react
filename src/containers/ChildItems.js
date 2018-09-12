@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import ChildTitle from 'src/components/ChildTitle.js'
 import ChildItem from 'src/containers/ChildItem.js'
 import {WindowScroller, AutoSizer, List} from 'react-virtualized'
+import fetchCache from 'src/fetchCache.js'
 
 const styles = theme => ({
   menuButton: {}
@@ -20,17 +21,16 @@ class ChildItems extends Component {
   }
 
   componentDidMount() {
-    fetch(
+    fetchCache(
       `https://hacker-news.firebaseio.com/v0/item/${this.props.id ||
         this.props.match.params.id}.json`
-    )
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          status: 'loaded',
-          ...data
-        })
+    ).then(data => {
+      if (!data) return
+      this.setState({
+        status: 'loaded',
+        ...data
       })
+    })
   }
 
   render() {

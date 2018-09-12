@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import PropTypes from 'prop-types'
 import ChildItems from '../containers/ChildItems.js'
 import Time from 'src/components/Time.js'
+import fetchCache from 'src/fetchCache.js'
 
 const styles = theme => ({
   card: {
@@ -30,20 +31,29 @@ class ChildItem extends Component {
   }
 
   componentDidMount() {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          status: 'loaded',
-          ...data
-        })
+    fetchCache(
+      `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`
+    ).then(data => {
+      this.setState({
+        status: 'loaded',
+        ...data
       })
+    })
   }
 
   render() {
     const {classes} = this.props
 
-    if (this.state.status == 'loading') return <>Loading...</>
+    if (this.state.status == 'loading') {
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography component="p">Loading...</Typography>
+          </CardContent>
+        </Card>
+      )
+    }
+
     if (this.state.deleted == true) {
       return (
         <Card className={classes.card}>
